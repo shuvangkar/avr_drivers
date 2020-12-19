@@ -2,7 +2,7 @@
 #include <stdint.h>
 
 /*************Hardware dependent Functions*********/
-SerialBegin(uint32_t baud)
+void SerialBegin(uint32_t baud)
 {
 // Set baud rate
 #if defined(F_CPU)
@@ -26,7 +26,7 @@ void SerialPrintChar(unsigned char c)
     UDR0 = c;
 }
 
-SerialPrint(char *str)
+void SerialPrint(char *str)
 {
     while (*str)
     {
@@ -39,7 +39,7 @@ SerialPrint(char *str)
 /************Hardware Independent Functions************/
 
 
-SerialPrintU32(uint32_t n)
+void SerialPrintU32(uint32_t n)
 {
     char buf[13];
     char *ptr = &buf[sizeof(buf) - 1]; //buf[12] -> last index of buffer
@@ -57,7 +57,7 @@ SerialPrintU32(uint32_t n)
     SerialPrint(ptr);
 }
 
-SerialPrintlnU32(int32_t n)
+void SerialPrintlnU32(int32_t n)
 {
     char buf[15];
     char *ptr = &buf[sizeof(buf) - 1]; //buf[12] -> last index of buffer
@@ -77,7 +77,7 @@ SerialPrintlnU32(int32_t n)
     SerialPrint(ptr);
 }
 
-SerialPrintS32(int32_t n)
+void SerialPrintS32(int32_t n)
 {
     if(n < 0)
     {
@@ -88,7 +88,7 @@ SerialPrintS32(int32_t n)
 
 }
 
-SerialPrintlnS32(int32_t n)
+void SerialPrintlnS32(int32_t n)
 {
     if(n < 0)
     {
@@ -99,43 +99,43 @@ SerialPrintlnS32(int32_t n)
 }
 
 
-SerialPrintU16(uint16_t n)
+void SerialPrintU16(uint16_t n)
 {
     SerialPrintU32(n);
 }
 
-SerialPrintlnU16(uint16_t n)
+void SerialPrintlnU16(uint16_t n)
 {
     SerialPrintlnU32(n);
 }
 
-SerialPrintS16(int16_t n)
+void SerialPrintS16(int16_t n)
 {
     SerialPrintS32(n);
 }
 
-SerialPrintlnS16(int16_t n)
+void SerialPrintlnS16(int16_t n)
 {
     SerialPrintlnS32(n);
 }
 
-SerialPrintU8(uint8_t n)
+void SerialPrintU8(uint8_t n)
 {
     SerialPrintU32(n);
 }
 
-SerialPrintS8(int8_t n)
+void SerialPrintS8(int8_t n)
 {
     SerialPrintS32(n);
 }
 
 
-SerialPrintlnU8(uint8_t n)
+void SerialPrintlnU8(uint8_t n)
 {
     SerialPrintlnU32(n);
 }
 
-SerialPrintlnS8(int8_t n)
+void SerialPrintlnS8(int8_t n)
 {
     SerialPrintlnS8(n);
 }

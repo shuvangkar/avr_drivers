@@ -6,28 +6,29 @@ extern "C" {
 #endif
 
 
-SerialBegin(uint32_t baud);
+void SerialBegin(uint32_t baud);
 void SerialPrintChar(unsigned char c);
-SerialPrintln(char *str);
+void SerialPrint(char *str)
+void SerialPrintln(char *str);
 
  
-SerialPrintU8(uint8_t n);
-SerialPrintS8(int8_t n);
-SerialPrintU16(uint16_t n);
-SerialPrintS16(int16_t n);
-SerialPrintU32(uint32_t n);
-SerialPrintS32(int32_t n);
+void SerialPrintU8(uint8_t n);
+void SerialPrintS8(int8_t n);
+void SerialPrintU16(uint16_t n);
+void SerialPrintS16(int16_t n);
+void SerialPrintU32(uint32_t n);
+void SerialPrintS32(int32_t n);
 
 
-SerialPrintlnU8(uint8_t n);
-SerialPrintlnS8(int8_t n);
-SerialPrintlnU16(uint16_t n);
-SerialPrintlnS16(int16_t n);
-SerialPrintlnU32(uint32_t n);
-SerialPrintlnS32(int32_t n);
+void SerialPrintlnU8(uint8_t n);
+void SerialPrintlnS8(int8_t n);
+void SerialPrintlnU16(uint16_t n);
+void SerialPrintlnS16(int16_t n);
+void SerialPrintlnU32(uint32_t n);
+void SerialPrintlnS32(int32_t n);
 
-SerialPrintFloat(float n);
-SerialPrintlnFloat(float n);
+void SerialPrintFloat(float n);
+void SerialPrintlnFloat(float n);
 
 
 #ifdef __cplusplus
