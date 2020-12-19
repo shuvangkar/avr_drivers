@@ -2,13 +2,19 @@
 #define _SERIAL_H_
 
 #ifdef __cplusplus
-extern "C" {
+	extern "C" {
 #endif
 
+#include <avr/io.h>
+#include <stdint.h>
+
+#ifndef F_CPU
+#warning "F_CPU not defined"
+#endif
 
 void SerialBegin(uint32_t baud);
 void SerialPrintChar(unsigned char c);
-void SerialPrint(char *str)
+void SerialPrint(char *str);
 void SerialPrintln(char *str);
 
  
@@ -34,4 +40,5 @@ void SerialPrintlnFloat(float n);
 #ifdef __cplusplus
 }
 #endif
+
 #endif
