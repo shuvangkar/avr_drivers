@@ -8,6 +8,7 @@ extern "C" {
 
 SerialBegin(uint32_t baud);
 void SerialPrintChar(unsigned char c);
+SerialPrintln(char *str);
 
  
 SerialPrintU8(uint8_t n);
@@ -17,7 +18,7 @@ SerialPrintS16(int16_t n);
 SerialPrintU32(uint32_t n);
 SerialPrintS32(int32_t n);
 
-SerialPrintln(char *str);
+
 SerialPrintlnU8(uint8_t n);
 SerialPrintlnS8(int8_t n);
 SerialPrintlnU16(uint16_t n);

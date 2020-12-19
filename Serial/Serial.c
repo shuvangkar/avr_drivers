@@ -98,6 +98,7 @@ SerialPrintlnS32(int32_t n)
     SerialPrintlnU32(n);
 }
 
+
 SerialPrintU16(uint16_t n)
 {
     SerialPrintU32(n);
@@ -110,10 +111,31 @@ SerialPrintlnU16(uint16_t n)
 
 SerialPrintS16(int16_t n)
 {
- SerialPrintS32(n);
+    SerialPrintS32(n);
 }
 
 SerialPrintlnS16(int16_t n)
 {
     SerialPrintlnS32(n);
+}
+
+SerialPrintU8(uint8_t n)
+{
+    SerialPrintU32(n);
+}
+
+SerialPrintS8(int8_t n)
+{
+    SerialPrintS32(n);
+}
+
+
+SerialPrintlnU8(uint8_t n)
+{
+    SerialPrintlnU32(n);
+}
+
+SerialPrintlnS8(int8_t n)
+{
+    SerialPrintlnS8(n);
 }
