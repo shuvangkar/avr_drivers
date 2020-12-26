@@ -43,8 +43,8 @@ void SerialPrintlnS16(int16_t n);
 void SerialPrintlnU32(uint32_t n);
 void SerialPrintlnS32(int32_t n);
 
-void SerialPrintFloat(float n);
-void SerialPrintlnFloat(float n);
+void SerialPrintFloat(float n,uint8_t digit);
+void SerialPrintlnFloat(float n,uint8_t digit);
 
 
 #ifdef __cplusplus

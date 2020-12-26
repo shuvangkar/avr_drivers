@@ -182,5 +182,40 @@ void SerialPrintlnU8(uint8_t n)
 
 void SerialPrintlnS8(int8_t n)
 {
-	SerialPrintlnS8(n);
+	SerialPrintlnS32(n);
+}
+
+
+void SerialPrintFloat(float n,uint8_t digit)
+{
+	//Handle negative
+	if(n < 0.0)
+	{
+		SerialPrintChar('-');
+		n = -n;
+	}
+	
+	uint32_t integerPart = (uint32_t)n;
+	float remainder = n - integerPart;
+	SerialPrintU32(integerPart);
+	
+	//Print decimal point
+	if(digit>0)
+	{
+		SerialPrintChar('.');
+	}
+	
+	//print remainder part
+	while(digit-- > 0)
+	{
+		remainder *= 10.0;
+	}
+	integerPart = (uint32_t)remainder;
+	SerialPrintU32(integerPart);
+}
+
+void SerialPrintlnFloat(float n,uint8_t digit)
+{
+	SerialPrintFloat(n,digit);
+	println();
 }
