@@ -6,18 +6,28 @@
 #endif
 
 #include <avr/io.h>
+#include <avr/pgmspace.h>
+
 #include <stdint.h>
 
 #ifndef F_CPU
 #warning "F_CPU not defined"
 #endif
 
-void SerialBegin(uint32_t baud);
-void SerialPrintChar(unsigned char c);
+
+void SerialBegin(uint32_t baud); // Hardware dependent
+void SerialPrintChar(unsigned char c); // Hardware dependent
+void SerialPrintF(const char *str); // Hardware dependent
+
+
+void SerialPrintlnF(const char *str);
+void println(void);
 void SerialPrint(char *str);
 void SerialPrintln(char *str);
 
- 
+
+
+
 void SerialPrintU8(uint8_t n);
 void SerialPrintS8(int8_t n);
 void SerialPrintU16(uint16_t n);

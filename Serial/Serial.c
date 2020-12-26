@@ -1,4 +1,6 @@
 #include "Serial.h"
+
+
 #define F_CPU 16000000UL
 /*************Hardware dependent Functions*********/
 void SerialBegin(uint32_t baud)
@@ -27,23 +29,52 @@ void SerialPrintChar(unsigned char c)
 	UDR0 = c;
 }
 
+
+void println(void)
+{
+	SerialPrintChar('\r');
+	SerialPrintChar('\n');
+}
+
 void SerialPrint(char *str)
 {
 	while (*str)
 	{
-		while (!(UCSR0A & (1 << UDRE0)));
-		UDR0 = *str;
+		//while (!(UCSR0A & (1 << UDRE0)));
+		//UDR0 = *str;
+		SerialPrintChar(*str);
 		str++;
 	}
 }
 
 void SerialPrintln(char *str)
 {
-	SerialPrint(str);
+	/*SerialPrint(str);
 	while (!(UCSR0A & (1 << UDRE0)));
 	UDR0 = '\r';
 	while (!(UCSR0A & (1 << UDRE0)));
 	UDR0 = '\n';
+	*/
+	SerialPrint(str);
+	println();
+}
+
+
+void SerialPrintF(const char *str)
+{
+	char *p = str;
+	unsigned char c;
+	do
+	{
+		c = pgm_read_byte(p++);
+		SerialPrintChar(c);
+	}while(c);
+}
+
+void SerialPrintlnF(const char *str)
+{
+	SerialPrintF(str);
+	println();
 }
 
 /************Hardware Independent Functions************/
@@ -69,6 +100,7 @@ void SerialPrintU32(uint32_t n)
 
 void SerialPrintlnU32(uint32_t n)
 {
+	/*
 	char buf[15];
 	char *ptr = &buf[sizeof(buf) - 1]; //buf[12] -> last index of buffer
 	*ptr = '\0';
@@ -85,6 +117,9 @@ void SerialPrintlnU32(uint32_t n)
 		*--ptr = c + '0';
 	}while(n);
 	SerialPrint(ptr);
+	*/
+	SerialPrintU32(n);
+	println();
 }
 
 void SerialPrintS32(int32_t n)
