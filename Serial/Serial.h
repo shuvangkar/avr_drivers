@@ -10,10 +10,13 @@
 
 #include <stdint.h>
 
+//#define F_CPU 16000000UL
+
 #ifndef F_CPU
 #warning "F_CPU not defined"
 #endif
 
+#define P(str) PSTR(str)
 
 void SerialBegin(uint32_t baud); // Hardware dependent
 void SerialPrintChar(unsigned char c); // Hardware dependent
