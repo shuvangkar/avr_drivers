@@ -2,6 +2,11 @@
 
 void (*_isrCb)() = NULL;
 
+ISR(ADC_vect)
+{
+  _isrCb();
+}
+
 void adcBegin(adc_ref_t ref)
 {
     ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); //Prescaler 128.So F_adc = 16MHz/128 = 125KHz
