@@ -1,6 +1,6 @@
 #include "adc.h"
 
-void (*_isrCb)();
+void (*_isrCb)() = NULL;
 
 void adcBegin(adc_ref_t ref)
 {
@@ -20,12 +20,51 @@ void adcSetAutoTriggerSource(adc_trig_source_t trigSource)
     ADCSRB |= source;
 }
 
-void adcAttachInterrrupt(void(*adc_isr));
-void adcDetachInterrupt();
-void adcSetChannel(uint8_t channel);
+void adcAttachInterrrupt(void(*adc_isr))
+{
+    _isrCb = adc_isr;
+     ADCSRA |= ((1 << ADIE)| (1 << ADEN));  //ADC Conversion complete interrupt enable
+     sei(); //enable global interrupt
+}
 
-void adcStartConversion(uint8_t channel);
+void adcDetachInterrupt()
+{
+     ADCSRA &= ~((1 << ADEN) | (1 << ADIE));
+}
 
-uint16_t adcRead(uint8_t channel);
-float adcReadAverage(uint8_t channel, uint8_t sample);
-float adcReadAvcc();
+void adcSetChannel(uint8_t channel)
+{
+    ADMUX = (ADMUX & 0b11110000) | (channel);
+}
+
+void adcStartConversion(uint8_t channel)
+{
+  setChannel(channel);
+  ADCSRA |= (1 << ADSC);  //start conversion
+}
+
+uint16_t adcRead(uint8_t channel)
+{
+  ADMUX = (ADMUX & 0xF0) | (channel & 0x0F);
+	ADCSRA |=1<<ADSC; //Start Conversion
+	while(!(ADCSRA&(1<<ADIF))); //Wait until conversion completes
+	ADCSRA|= 1<<ADIF; //ADIF must be cleared(1) to trigger a new conversion next time
+	return ADCW; //return ADC value  
+}
+float adcReadAverage(uint8_t channel, uint8_t sample)
+{
+    uint32_t adcSum = 0; 
+	for(byte i = 0; i< sample; i++)
+	{
+		adcSum += read(channel);
+	}
+
+	float result = (float)adcSum/N;
+	return result;
+}
+float adcReadAvcc()
+{
+    float avcc = readAverage(0b1110,50);
+	avcc = (1024.0*1.1)/avcc;
+	return avcc;
+}
