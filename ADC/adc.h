@@ -4,9 +4,12 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <avr/io.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+
 
 typedef enum adc_ref_t
 {
