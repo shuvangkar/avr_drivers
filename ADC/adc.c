@@ -1,5 +1,5 @@
 #include "adc.h"
-#include <avr/interrupt.h>
+#include <avr/io.h>
 
 void (*_isrCb)() = NULL;
 
@@ -45,7 +45,7 @@ void adcSetChannel(uint8_t channel)
 
 void adcStartConversion(uint8_t channel)
 {
-    adcSetChannel(channel);
+    setChannel(channel);
     ADCSRA |= (1 << ADSC); //start conversion
 }
 
@@ -61,9 +61,9 @@ uint16_t adcRead(uint8_t channel)
 float adcReadAverage(uint8_t channel, uint8_t N)
 {
     uint32_t adcSum = 0;
-    for (uint8_t i = 0; i < N; i++)
+    for (byte i = 0; i < N; i++)
     {
-        adcSum += adcRead(channel);
+        adcSum += read(channel);
     }
 
     float result = (float)adcSum / N;
@@ -71,7 +71,7 @@ float adcReadAverage(uint8_t channel, uint8_t N)
 }
 float adcReadAvcc()
 {
-    float avcc = adcReadAverage(0b1110, 50);
+    float avcc = readAverage(0b1110, 50);
     avcc = (1024.0 * 1.1) / avcc;
     return avcc;
 }
