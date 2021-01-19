@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -26,7 +27,7 @@ typedef enum adc_trig_source_t
 
 
 void adcBegin(adc_ref_t ref);
-void adcAttachInterrrupt(void (*adc_isr));
+void adcAttachInterrrupt(void (*adc_isr)());
 void adcDetachInterrupt();
 void adcSetChannel(uint8_t channel);
 void adcSetAutoTriggerSource(adc_trig_source_t trigSource);
