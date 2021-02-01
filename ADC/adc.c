@@ -41,9 +41,8 @@ void adcAttachInterrrupt(void (*adc_isr)())
 		SerialPrintlnF(P("_isrCb is not null"));
 	}
 	
-	sei(); 
     ADCSRA |= ((1 << ADIE) | (1 << ADEN)); //ADC Conversion complete interrupt enable
-                                    //enable global interrupt
+    sei();                                //enable global interrupt
 }
 
 void adcDetachInterrupt()
@@ -58,6 +57,7 @@ void adcSetChannel(uint8_t channel)
 
 void adcStartConversion(uint8_t channel)
 {
+	//Conversion has to start in free running mode
     adcSetChannel(channel);
     ADCSRA |= (1 << ADSC); //start conversion
 }
